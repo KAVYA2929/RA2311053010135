@@ -1,24 +1,32 @@
 const Log = async (stack, level, pkg, message) => {
+
+  console.log("Sending log:", {
+    stack,
+    level,
+    package: pkg,
+    message
+  });
+
   try {
     const response = await fetch("http://20.207.122.201/evaluation-service/logs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer YOUR_ACCESS_TOKEN"
+        Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiYXVkIjoiaHR0cDovLzIwLjI0NC41Ni4xNDQvZXZhbHVhdGlvbi1zZXJ2aWNlIiwiZW1haWwiOiJrYTQyNjBAc3JtaXN0LmVkdS5pbiIsImV4cCI6MTc3NzcwMDA1NSwiaWF0IjoxNzc3Njk5MTU1LCJpc3MiOiJBZmZvcmQgTWVkaWNhbCBUZWNobm9sb2dpZXMgUHJpdmF0ZSBMaW1pdGVkIiwianRpIjoiZDBkOGYxY2QtYThmMy00MjEwLThmZTItMGExMDU4NTY4NjIwIiwibG9jYWxlIjoiZW4tSU4iLCJuYW1lIjoia2F2eWEgYWdyYXdhbCIsInN1YiI6IjA5ZjE4ZmExLTZkMWUtNDE2Mi04YjY5LWQwNTM0NTQyMjU1NCJ9LCJlbWFpbCI6ImthNDI2MEBzcm1pc3QuZWR1LmluIiwibmFtZSI6ImthdnlhIGFncmF3YWwiLCJyb2xsTm8iOiJyYTIzMTEwNTMwMTAxMzUiLCJhY2Nlc3NDb2RlIjoiUWticHhIIiwiY2xpZW50SUQiOiIwOWYxOGZhMS02ZDFlLTQxNjItOGI2OS1kMDUzNDU0MjI1NTQiLCJjbGllbnRTZWNyZXQiOiJGam1SYnZwdkRLSGZja3N3In0.faBQJrtPRD_GyfMiop9SEj-020eOU9OvSpqRwChaeRA"
       },
       body: JSON.stringify({
-        stack: stack,
-        level: level,
+        stack,
+        level,
         package: pkg,
-        message: message
+        message
       })
     });
 
     const data = await response.json();
-    console.log("Log sent:", data);
+    console.log("Log success:", data);
 
   } catch (error) {
-    console.error("Logging error:", error);
+    console.error("Log error:", error);
   }
 };
 
